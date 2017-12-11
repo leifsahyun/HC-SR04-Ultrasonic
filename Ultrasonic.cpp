@@ -16,7 +16,6 @@ bool Ultrasonic::trigger(){
   digitalWrite(trigPin, HIGH);
   delayMicroseconds(10);
   digitalWrite(trigPin, LOW);
-  Serial.print(""); //Not sure why this line of code is necessary, but the code does not function without it. Originally Serial.println("triggered")
   return true;
 }
 
@@ -55,3 +54,12 @@ bool Ultrasonic::checkEcho(){
     return false;
   }
 }
+
+void Ultrasonic::calibrate(int timeSense, int constDist){
+  timeDistOffset = timeSense - constDist*timeDistConvFactor;
+}
+    
+static void Ultrasonic::resetTriggers(){
+  triggeredObj = NULL;
+}
+
